@@ -33,26 +33,32 @@ function App() {
 
   return (
     <div className="App">
+    <header className='header'><h4>TODO LIST</h4></header>
+    <body className='container'>
+      <div className='formContainer'>
       <input
         type="text"
         placeholder="Search todos"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
+        className="searchInput"
       />
       <form onSubmit={handleSubmit}>
-        <input value={inputVal} placeholder="Enter a task" onChange={(e) => setInputVal(e.target.value)} />
-        <button type='submit'>Click to add</button>
-        <div>
+        <input value={inputVal} placeholder="Enter a task" onChange={(e) => setInputVal(e.target.value)} className='todoInput' />
+        <button type='submit'className='todoButton'>Click to add</button>
+      </form>
+      <div>
           {
             filteredTodos.map((data, index) =>
             (
-              <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} key={index}>
-                <p>{data}</p><button onClick={() => handleDelete(index)}>Del</button>
+              <div className='todoList' key={index}>
+                <p>{data}</p><button onClick={() => handleDelete(index)} className="delButton" >Del</button>
               </div>
             ))
           }
         </div>
-      </form>
+      </div>
+      </body>
     </div>
   );
 }
