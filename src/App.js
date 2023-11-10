@@ -1,23 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { useState } from "react";
 function App() {
+  const [inputVal, setInputVal] = useState("");
+  const [todo, setTodo] = useState([])
+  console.log(inputVal);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (inputVal.trim() !== "") {
+      setTodo([...todo, inputVal])
+      setInputVal("")
+    }
+  }
+  const handleDelete=(index)=>
+  {
+   const updatedTodo=[...todo]
+   updatedTodo.splice(index,1)
+   setTodo(updatedTodo);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form onSubmit={handleSubmit}>
+        <input value={inputVal} placeholder="Enter a task" onChange={(e) => setInputVal(e.target.value)} />
+        <button type='submit'>Click to add</button>
+        <div>
+          {
+            todo.map((data, index) =>
+            (
+              <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <p>{data}</p> <button onClick={()=>handleDelete(index)}>Del</button>
+              </div>
+            ))
+          }
+        </div>
+      </form>
     </div>
   );
 }
